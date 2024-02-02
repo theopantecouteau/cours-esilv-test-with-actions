@@ -22,9 +22,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Steps represent a sequence of tasks that will be executed as part of the job  steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+
+      # Sets up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify the Node.js version you want to use
+
+      # Install and run markdown lint
+      - name: Install remark-cli and remark-preset-lint-consistent
+        run: npm install remark-cli remark-preset-lint-consistent
+
       - name: Run markdown lint
-        run: |
-          npm install remark-cli remark-preset-lint-consistent
-          npx remark . --use remark-preset-lint-consistent --frail
+        run: npx remark . --use remark-preset-lint-consistent --frail
+
+
+    
